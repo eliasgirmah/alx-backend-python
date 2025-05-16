@@ -1,4 +1,4 @@
-
+!/usr/bin/python3
 # This script connects to the MySQL database and creates a table if it doesn't exist.
 import os
 import mysql.connector
