@@ -26,16 +26,24 @@ def create_database(connection):
         print(f"Failed creating database: {err}")
     cursor.close()
 
+import os
+import mysql.connector
+from dotenv import load_dotenv
+
+load_dotenv()
+
 def connect_to_prodev():
-    """Connect to the ALX_prodev database"""
     try:
         connection = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='elias',
-            database='ALX_prodev'
+            host='127.0.0.1',  # explicitly specify TCP host to avoid named pipe issues
+            user=os.getenv('MYSQL_USER'),
+            password=os.getenv('MYSQL_PASSWORD'),
+            database=os.getenv('MYSQL_DATABASE')
         )
         return connection
+    except mysql.connector.Error as err:
+        print(f"Error: {err}")
+        return None
     except mysql.connector.Error as err:
         print(f"Error connecting to ALX_prodev: {err}")
         return None
