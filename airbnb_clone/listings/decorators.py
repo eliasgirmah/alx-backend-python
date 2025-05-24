@@ -4,24 +4,44 @@ import sqlite3
 import os
 from django.conf import settings
 logger = logging.getLogger('user_queries')
+# listings/decorators.py
+from functools import wraps
+from datetime import datetime
+from django.db import connection
 
-def log_queries(query):
+def log_queries(query_text):
     def decorator(func):
-        @functools.wraps(func)
+        @wraps(func)
         def wrapper(*args, **kwargs):
-            logger.info(f"Executing query: {query}")
+            print(f"[{datetime.now()}] Executing query: {query_text}")
             return func(*args, **kwargs)
         return wrapper
     return decorator
 
 def with_db_connection(func):
-    @functools.wraps(func)
+    @wraps(func)
     def wrapper(*args, **kwargs):
-        db_path = os.path.join(settings.BASE_DIR, 'db.sqlite3')  # Adjust if using a different DB
-        conn = sqlite3.connect(db_path)
+        conn = connection
         try:
             result = func(conn, *args, **kwargs)
+            return result
         finally:
-            conn.close()
-        return result
+            pass  # Django handles closing
+    return wrapper
+
+def transactional(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        with connection.cursor() as cursor:
+            try:
+                print("[TRANSACTION] BEGIN")
+                result = func(cursor, *args, **kwargs)
+                connection.commit()
+                print("[TRANSACTION] COMMIT")
+                return result
+            except Exception as e:
+                connection.rollback()
+                print("[TRANSACTION] ROLLBACK")
+                print(f"[ERROR] {e}")
+                raise
     return wrapper

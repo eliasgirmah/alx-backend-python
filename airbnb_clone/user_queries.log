@@ -36,3 +36,144 @@
 2025-05-24 12:36:16,029 [INFO] C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\urls.py changed, reloading.
 2025-05-24 12:36:16,793 [INFO] Watching for file changes with StatReloader
 2025-05-24 12:36:32,662 [INFO] "GET /debug-user/ HTTP/1.1" 200 215
+2025-05-24 12:58:59,942 [INFO] Watching for file changes with StatReloader
+2025-05-24 12:59:10,946 [INFO] "GET /logs/ HTTP/1.1" 200 4162
+2025-05-24 12:59:25,178 [ERROR] Internal Server Error: /debug-user/
+Traceback (most recent call last):
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\views.py", line 36, in debug_user_view
+    user = get_user_by_id(user_id=1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\decorators.py", line 26, in wrapper
+    result = func(conn, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\utils.py", line 14, in get_user_by_id
+    cursor.execute("SELECT * FROM auth_user WHERE id = ?", (user_id,))
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\db\backends\utils.py", line 121, in execute
+    with self.debug_sql(sql, params, use_last_executed_query=True):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\db\backends\utils.py", line 139, in debug_sql
+    sql = self.db.ops.last_executed_query(self.cursor, sql, params)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\db\backends\sqlite3\operations.py", line 193, in last_executed_query
+    return sql % params
+           ~~~~^~~~~~~~
+TypeError: not all arguments converted during string formatting
+2025-05-24 12:59:25,185 [ERROR] "GET /debug-user/ HTTP/1.1" 500 101595
+2025-05-24 13:02:37,573 [INFO] C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\views.py changed, reloading.
+2025-05-24 13:02:38,316 [INFO] Watching for file changes with StatReloader
+2025-05-24 13:03:30,741 [INFO] C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\urls.py changed, reloading.
+2025-05-24 13:03:31,395 [INFO] Watching for file changes with StatReloader
+2025-05-24 13:03:54,932 [INFO] Watching for file changes with StatReloader
+2025-05-24 13:05:03,520 [INFO] C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\urls.py changed, reloading.
+2025-05-24 13:05:04,238 [INFO] Watching for file changes with StatReloader
+2025-05-24 13:05:17,819 [INFO] C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\urls.py changed, reloading.
+2025-05-24 13:05:18,443 [INFO] Watching for file changes with StatReloader
+2025-05-24 13:06:15,009 [INFO] C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\urls.py changed, reloading.
+2025-05-24 13:06:15,739 [INFO] Watching for file changes with StatReloader
+2025-05-24 13:07:01,813 [INFO] "GET //logs/ HTTP/1.1" 302 0
+2025-05-24 13:07:01,963 [INFO] "GET /admin/login/?next=/logs/ HTTP/1.1" 200 4171
+2025-05-24 13:07:03,380 [INFO] "GET /static/admin/css/login.css HTTP/1.1" 200 951
+2025-05-24 13:07:03,383 [INFO] "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+2025-05-24 13:07:03,389 [INFO] "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+2025-05-24 13:07:03,390 [INFO] "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+2025-05-24 13:07:03,398 [INFO] "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+2025-05-24 13:07:03,409 [INFO] "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+2025-05-24 13:07:03,411 [INFO] "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+2025-05-24 13:07:06,964 [INFO] "POST /admin/login/?next=/logs/ HTTP/1.1" 302 0
+2025-05-24 13:07:07,019 [INFO] "GET /logs/ HTTP/1.1" 200 8896
+2025-05-24 13:07:42,329 [ERROR] Internal Server Error: /debug-user/
+Traceback (most recent call last):
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\views.py", line 51, in debug_user_view
+    user = get_user_by_id(user_id=1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\decorators.py", line 26, in wrapper
+    result = func(conn, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\utils.py", line 14, in get_user_by_id
+    cursor.execute("SELECT * FROM auth_user WHERE id = ?", (user_id,))
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\db\backends\utils.py", line 121, in execute
+    with self.debug_sql(sql, params, use_last_executed_query=True):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\db\backends\utils.py", line 139, in debug_sql
+    sql = self.db.ops.last_executed_query(self.cursor, sql, params)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\db\backends\sqlite3\operations.py", line 193, in last_executed_query
+    return sql % params
+           ~~~~^~~~~~~~
+TypeError: not all arguments converted during string formatting
+2025-05-24 13:07:42,339 [ERROR] "GET //debug-user/ HTTP/1.1" 500 101434
+2025-05-24 13:08:07,966 [ERROR] Internal Server Error: /debug-user/
+Traceback (most recent call last):
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\views.py", line 51, in debug_user_view
+    user = get_user_by_id(user_id=1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\decorators.py", line 26, in wrapper
+    result = func(conn, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\utils.py", line 14, in get_user_by_id
+    cursor.execute("SELECT * FROM auth_user WHERE id = ?", (user_id,))
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\db\backends\utils.py", line 121, in execute
+    with self.debug_sql(sql, params, use_last_executed_query=True):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\db\backends\utils.py", line 139, in debug_sql
+    sql = self.db.ops.last_executed_query(self.cursor, sql, params)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\db\backends\sqlite3\operations.py", line 193, in last_executed_query
+    return sql % params
+           ~~~~^~~~~~~~
+TypeError: not all arguments converted during string formatting
+2025-05-24 13:08:07,974 [ERROR] "GET /debug-user/ HTTP/1.1" 500 101434
+2025-05-24 13:08:15,710 [ERROR] Internal Server Error: /debug-user/
+Traceback (most recent call last):
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\views.py", line 51, in debug_user_view
+    user = get_user_by_id(user_id=1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\decorators.py", line 26, in wrapper
+    result = func(conn, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\utils.py", line 14, in get_user_by_id
+    cursor.execute("SELECT * FROM auth_user WHERE id = ?", (user_id,))
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\db\backends\utils.py", line 121, in execute
+    with self.debug_sql(sql, params, use_last_executed_query=True):
+  File "C:\Users\user\AppData\Local\Programs\Python\Python312\Lib\contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\db\backends\utils.py", line 139, in debug_sql
+    sql = self.db.ops.last_executed_query(self.cursor, sql, params)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\db\backends\sqlite3\operations.py", line 193, in last_executed_query
+    return sql % params
+           ~~~~^~~~~~~~
+TypeError: not all arguments converted during string formatting
+2025-05-24 13:08:15,714 [ERROR] "GET /debug-user/ HTTP/1.1" 500 101434
+2025-05-24 13:08:29,552 [INFO] "GET /debug-users/ HTTP/1.1" 200 19
+2025-05-24 13:09:07,652 [INFO] "GET /debug-update-email HTTP/1.1" 301 0
+2025-05-24 13:09:13,265 [INFO] "GET /debug-update-email/ HTTP/1.1" 200 34
+2025-05-24 13:09:29,057 [INFO] - Broken pipe from ('127.0.0.1', 51787)
+2025-05-24 13:09:29,160 [INFO] "GET /debug-users/ HTTP/1.1" 200 19

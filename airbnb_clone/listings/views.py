@@ -4,6 +4,21 @@ from .models import Listing
 from django.http import HttpResponse
 from .utils import get_users_query
 
+
+from .utils import get_users_query, update_user_email
+
+def debug_all_users_view(request):
+    users = get_users_query()
+    usernames = ", ".join([user.username for user in users])
+    return HttpResponse(f"Users: {usernames}")
+
+def debug_update_email_view(request):
+    try:
+        update_user_email(user_id=1, new_email='debug_updated@example.com')
+        return HttpResponse("Email updated successfully!")
+    except Exception as e:
+        return HttpResponse(f"Error occurred: {str(e)}")
+
 def listing_list(request):
     listings = Listing.objects.all()
     return render(request, 'listings/home.html', {'listings': listings})
