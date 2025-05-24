@@ -177,3 +177,52 @@ TypeError: not all arguments converted during string formatting
 2025-05-24 13:09:13,265 [INFO] "GET /debug-update-email/ HTTP/1.1" 200 34
 2025-05-24 13:09:29,057 [INFO] - Broken pipe from ('127.0.0.1', 51787)
 2025-05-24 13:09:29,160 [INFO] "GET /debug-users/ HTTP/1.1" 200 19
+2025-05-24 13:22:50,346 [INFO] Watching for file changes with StatReloader
+2025-05-24 13:23:02,128 [WARNING] Not Found: /debug-fetch-users/
+2025-05-24 13:23:02,129 [WARNING] "GET /debug-fetch-users/ HTTP/1.1" 404 3996
+2025-05-24 13:23:12,260 [INFO] C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\urls.py changed, reloading.
+2025-05-24 13:23:12,779 [INFO] Watching for file changes with StatReloader
+2025-05-24 13:23:48,650 [INFO] C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\utils.py changed, reloading.
+2025-05-24 13:23:49,067 [INFO] Watching for file changes with StatReloader
+2025-05-24 13:25:18,995 [INFO] Watching for file changes with StatReloader
+2025-05-24 13:28:04,068 [INFO] Watching for file changes with StatReloader
+2025-05-24 13:30:47,518 [INFO] Watching for file changes with StatReloader
+2025-05-24 13:32:14,965 [INFO] Watching for file changes with StatReloader
+2025-05-24 13:34:59,120 [INFO] Watching for file changes with StatReloader
+2025-05-24 13:36:58,214 [INFO] C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\utils.py changed, reloading.
+2025-05-24 13:36:58,649 [INFO] Watching for file changes with StatReloader
+2025-05-24 13:37:04,698 [INFO] "GET / HTTP/1.1" 200 3542
+2025-05-24 13:37:06,426 [INFO] "GET / HTTP/1.1" 200 3542
+2025-05-24 13:37:12,271 [ERROR] Internal Server Error: /debug-user/
+Traceback (most recent call last):
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\views.py", line 37, in debug_user_view
+    user = get_user_by_id(user_id=1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\decorators.py", line 50, in wrapper
+    return func(conn, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\utils.py", line 15, in get_user_by_id
+    cursor.execute("SELECT * FROM auth_user WHERE id = ?", (user_id,))
+sqlite3.OperationalError: no such table: auth_user
+2025-05-24 13:37:12,276 [ERROR] "GET /debug-user/ HTTP/1.1" 500 83961
+2025-05-24 13:37:15,375 [INFO] "GET /logs/ HTTP/1.1" 200 19791
+2025-05-24 13:37:28,645 [INFO] - Broken pipe from ('127.0.0.1', 54632)
+2025-05-24 13:37:31,010 [ERROR] Internal Server Error: /debug-users/
+Traceback (most recent call last):
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\views.py", line 45, in debug_all_users_view
+    usernames = ", ".join([str(user['username']) for user in users])  # FIX: If user is a dict
+                               ~~~~^^^^^^^^^^^^
+TypeError: 'User' object is not subscriptable
+2025-05-24 13:37:31,012 [ERROR] "GET /debug-users/ HTTP/1.1" 500 76065
