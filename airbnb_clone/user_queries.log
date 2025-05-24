@@ -30,3 +30,9 @@
 2025-05-24 12:23:05,729 [INFO] "GET /media/media/listing_images/Screenshot_2025-05-19_090721.png HTTP/1.1" 304 0
 2025-05-24 12:23:08,178 [INFO] "GET / HTTP/1.1" 200 3542
 2025-05-24 12:23:14,115 [INFO] "GET /logs/ HTTP/1.1" 200 3387
+2025-05-24 12:35:03,780 [INFO] Watching for file changes with StatReloader
+2025-05-24 12:35:25,899 [INFO] C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\urls.py changed, reloading.
+2025-05-24 12:35:26,710 [INFO] Watching for file changes with StatReloader
+2025-05-24 12:36:16,029 [INFO] C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\urls.py changed, reloading.
+2025-05-24 12:36:16,793 [INFO] Watching for file changes with StatReloader
+2025-05-24 12:36:32,662 [INFO] "GET /debug-user/ HTTP/1.1" 200 215

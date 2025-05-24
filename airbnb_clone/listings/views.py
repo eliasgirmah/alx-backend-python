@@ -26,3 +26,14 @@ def view_logs(request):
             logs = file.readlines()
 
     return render(request, 'listings/logs.html', {'logs': logs})
+
+# listings/views.py
+
+from django.http import HttpResponse
+from .utils import get_user_by_id
+
+def debug_user_view(request):
+    user = get_user_by_id(user_id=1)
+    if user:
+        return HttpResponse(f"User found: {user}")
+    return HttpResponse("User not found.")
