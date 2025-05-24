@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Query Logs</title>
+    <style>
+        body { font-family: monospace; background: #f4f4f4; padding: 20px; }
+        pre { background: #fff; border: 1px solid #ccc; padding: 10px; overflow-x: scroll; max-height: 600px;}
+    </style>
+</head>
+<body>
+    <h1>User Query Logs</h1>
+    <pre>
+{% for line in logs %}
+{{ line }}
+{% endfor %}
+    </pre>
+</body>
+</html>

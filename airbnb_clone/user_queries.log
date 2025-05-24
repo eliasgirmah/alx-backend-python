@@ -1,0 +1,32 @@
+2025-05-24 12:15:24,542 [INFO] Watching for file changes with StatReloader
+2025-05-24 12:18:05,418 [INFO] C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\utils.py changed, reloading.
+2025-05-24 12:18:06,090 [INFO] Watching for file changes with StatReloader
+2025-05-24 12:18:57,149 [INFO] C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\views.py changed, reloading.
+2025-05-24 12:18:57,855 [INFO] Watching for file changes with StatReloader
+2025-05-24 12:19:58,988 [INFO] C:\Users\user\Documents\SoftwareEnginering\ALX_Backend\alx-backend-python\airbnb_clone\listings\urls.py changed, reloading.
+2025-05-24 12:19:59,656 [INFO] Watching for file changes with StatReloader
+2025-05-24 12:20:40,281 [INFO] "GET / HTTP/1.1" 200 3542
+2025-05-24 12:20:40,426 [INFO] "GET /media/listing_images/Screenshot_2025-05-19_090721.png HTTP/1.1" 304 0
+2025-05-24 12:20:40,426 [INFO] "GET /media/listing_images/Screenshot_2025-05-19_092446.png HTTP/1.1" 304 0
+2025-05-24 12:20:40,433 [INFO] "GET /media/listing_images/Screenshot_2025-05-19_155452.png HTTP/1.1" 304 0
+2025-05-24 12:20:40,435 [INFO] "GET /media/listing_images/Screenshot_2025-05-19_143438.png HTTP/1.1" 304 0
+2025-05-24 12:20:40,444 [INFO] "GET /media/media/listing_images/Screenshot_2025-05-19_090721.png HTTP/1.1" 304 0
+2025-05-24 12:20:42,314 [INFO] "GET / HTTP/1.1" 200 3542
+2025-05-24 12:20:57,048 [WARNING] Not Found: /log.html
+2025-05-24 12:20:57,050 [WARNING] "GET /log.html HTTP/1.1" 404 3155
+2025-05-24 12:21:09,649 [INFO] "GET /logs HTTP/1.1" 301 0
+2025-05-24 12:21:09,763 [INFO] "GET /logs/ HTTP/1.1" 200 2124
+2025-05-24 12:22:16,669 [INFO] "GET /admin/listings/listing/add/ HTTP/1.1" 200 13363
+2025-05-24 12:22:20,066 [INFO] "GET / HTTP/1.1" 200 3542
+2025-05-24 12:22:22,492 [INFO] "GET /1/ HTTP/1.1" 200 438
+2025-05-24 12:22:24,840 [INFO] "GET /1/ HTTP/1.1" 200 438
+2025-05-24 12:22:28,917 [INFO] "GET /logs/ HTTP/1.1" 200 2504
+2025-05-24 12:23:04,300 [INFO] "GET /1/ HTTP/1.1" 200 438
+2025-05-24 12:23:04,324 [INFO] "GET /media/listing_images/Screenshot_2025-05-19_090721.png HTTP/1.1" 304 0
+2025-05-24 12:23:05,714 [INFO] "GET / HTTP/1.1" 200 3542
+2025-05-24 12:23:05,726 [INFO] "GET /media/listing_images/Screenshot_2025-05-19_155452.png HTTP/1.1" 304 0
+2025-05-24 12:23:05,726 [INFO] "GET /media/listing_images/Screenshot_2025-05-19_092446.png HTTP/1.1" 304 0
+2025-05-24 12:23:05,729 [INFO] "GET /media/listing_images/Screenshot_2025-05-19_143438.png HTTP/1.1" 304 0
+2025-05-24 12:23:05,729 [INFO] "GET /media/media/listing_images/Screenshot_2025-05-19_090721.png HTTP/1.1" 304 0
+2025-05-24 12:23:08,178 [INFO] "GET / HTTP/1.1" 200 3542
+2025-05-24 12:23:14,115 [INFO] "GET /logs/ HTTP/1.1" 200 3387
