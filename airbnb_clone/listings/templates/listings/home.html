@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Airbnb Clone - Listings</title>
+</head>
+<body>
+    <h1>Welcome to the Airbnb Clone Home Page</h1>
+
+    <h2>Available Listings</h2>
+    {% if listings %}
+        <ul>
+            {% for listing in listings %}
+                <li>
+                    <h3>{{ listing.title }}</h3>
+                    <p>{{ listing.description }}</p>
+                    <p><strong>Location:</strong> {{ listing.location }}</p>
+                    <p><strong>Price per Night:</strong> ${{ listing.price_per_night }}</p>
+
+                    {% if listing.image %}
+                        <img src="{{ listing.image.url }}" alt="{{ listing.title }}" width="200">
+                    {% endif %}
+
+                    <!-- More info link to detail page -->
+                    <a href="{% url 'listings:listing_detail' listing.pk %}">More info</a>
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No listings available.</p>
+    {% endif %}
+</body>
+</html>

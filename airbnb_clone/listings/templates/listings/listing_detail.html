@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ listing.title }}</title>
+</head>
+<body>
+    <h1>{{ listing.title }}</h1>
+    <img src="{{ listing.image.url }}" alt="{{ listing.title }}" width="400">
+    <p>{{ listing.description }}</p>
+    <p><strong>Price per night:</strong> ${{ listing.price_per_night }}</p>
+    <p><strong>Available:</strong> {% if listing.is_available %} Yes {% else %} No {% endif %}</p>
+    <a href="{% url 'listings:listing_list' %}">Back to Listings</a>
+</body>
+</html>
