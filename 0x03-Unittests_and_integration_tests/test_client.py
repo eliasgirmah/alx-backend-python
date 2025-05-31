@@ -22,8 +22,9 @@ class TestGithubOrgClient(TestCase):
 
         self.assertEqual(client.org, expected)
         mock_get_json.assert_called_once_with(
-            f"https://api.github.com/orgs/{org_name}"
-        )
+    f"https://api.github.com/orgs/{org_name}"
+   )
+
 
     def test_public_repos_url(self):
         """Test GithubOrgClient._public_repos_url returns expected value from mocked org"""
