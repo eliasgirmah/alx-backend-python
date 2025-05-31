@@ -15,7 +15,7 @@ import fixtures
             fixtures.org_payload,
             fixtures.repos_payload,
             fixtures.expected_repos,
-            fixtures.apache2_repos
+            fixtures.apache2_repos,
         )
     ]
 )
@@ -24,7 +24,6 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        """Set up patcher for requests.get with fixture side effects"""
         cls.get_patcher = patch('requests.get')
         cls.mock_get = cls.get_patcher.start()
 
@@ -42,15 +41,12 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        """Stop patcher"""
         cls.get_patcher.stop()
 
     def test_public_repos(self):
-        """Test public_repos returns expected repo list"""
         client = GithubOrgClient(self.org_payload['login'])
         self.assertEqual(client.public_repos(), self.expected_repos)
 
     def test_public_repos_with_license(self):
-        """Test public_repos filters repos with a license"""
         client = GithubOrgClient(self.org_payload['login'])
         self.assertEqual(client.public_repos(license="apache-2.0"), self.apache2_repos)
