@@ -13,8 +13,8 @@ class TestGithubOrgClient(TestCase):
         ("google", {"login": "google"}),
         ("abc", {"login": "abc"})
     ])
-    @patch('client.get_json')  # PATCH MUST BE AFTER parameterized
-    def test_org(self, org_name, expected, mock_get_json):  # parameters: org_name, expected, then mock
+    @patch('client.get_json')  # PATCH must come after parameterized
+    def test_org(self, org_name, expected, mock_get_json):
         mock_get_json.return_value = expected
 
         client = GithubOrgClient(org_name)
@@ -23,8 +23,7 @@ class TestGithubOrgClient(TestCase):
 
     def test_public_repos_url(self):
         """Test GithubOrgClient._public_repos_url returns expected repos_url from mocked org property"""
-        with patch('client.GithubOrgClient.org', new_callable=property) as mock_org:
-            # Mock the org property to return a dict with 'repos_url'
+        with patch('client.GithubOrgClient.org', new_callable=PropertyMock) as mock_org:
             mock_org.return_value = {"repos_url": "http://mocked.url"}
 
             client = GithubOrgClient("test_org")
