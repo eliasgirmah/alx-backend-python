@@ -22,7 +22,9 @@ class TestGithubOrgClient(TestCase):
         mock_get_json.assert_called_once_with(f"https://api.github.com/orgs/{org_name}")
 
     def test_public_repos_url(self):
-        with patch('client.GithubOrgClient.org', new_callable=PropertyMock) as mock_org:
+        """Test GithubOrgClient._public_repos_url returns expected repos_url from mocked org property"""
+        with patch('client.GithubOrgClient.org', new_callable=property) as mock_org:
+            # Mock the org property to return a dict with 'repos_url'
             mock_org.return_value = {"repos_url": "http://mocked.url"}
 
             client = GithubOrgClient("test_org")
