@@ -19,4 +19,5 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include('chats.urls')),  # Include the chats app URLs under the 'api/' prefix
 ]

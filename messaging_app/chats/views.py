@@ -5,6 +5,7 @@ from rest_framework.exceptions import ValidationError
 
 from .models import Conversation, Message
 from .serializers import ConversationSerializer, MessageSerializer
+from rest_framework import filters
 
 
 class ConversationViewSet(viewsets.ModelViewSet):
