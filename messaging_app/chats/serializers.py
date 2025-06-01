@@ -6,6 +6,7 @@ class UserSerializer(serializers.ModelSerializer):
     phone_number = serializers.CharField(required=False, allow_blank=True)
     first_name = serializers.CharField(required=False, allow_blank=True)
     last_name = serializers.CharField(required=False, allow_blank=True)
+
     class Meta:
         model = User
         fields = ['user_id', 'username', 'email', 'phone_number', 'first_name', 'last_name']
@@ -23,11 +24,17 @@ class MessageSerializer(serializers.ModelSerializer):
 
 class ConversationSerializer(serializers.ModelSerializer):
     conversation_id = serializers.UUIDField(source='id', read_only=True)
-    
     participants = UserSerializer(many=True, read_only=True)
-    sent_messages = MessageSerializer(many=True, read_only=True, source='messages')
+    sent_messages = MessageSerializer(many=True, read_only=True)
+    
+    # Add SerializerMethodField to count messages in the conversation
+    message_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Conversation
-        fields = ['conversation_id', 'participants', 'created_at']
+        fields = ['conversation_id', 'participants', 'created_at', 'sent_messages', 'message_count']
         read_only_fields = ['conversation_id', 'created_at']
+
+    def get_message_count(self, obj):
+        # obj is a Conversation instance
+        return obj.sent_messages.count()
