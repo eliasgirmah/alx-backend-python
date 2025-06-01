@@ -16,18 +16,29 @@ class MessageSerializer(serializers.ModelSerializer):
     message_id = serializers.UUIDField(source='id', read_only=True)
     conversation = serializers.PrimaryKeyRelatedField(queryset=Conversation.objects.all())
     sender = UserSerializer(read_only=True)
+    
+    # Example of SerializerMethodField usage (e.g., return a snippet of the message)
+    message_snippet = serializers.SerializerMethodField()
 
     class Meta:
         model = Message
-        fields = ['message_id', 'conversation', 'sender', 'message_body', 'sent_at']
+        fields = ['message_id', 'conversation', 'sender', 'message_body', 'sent_at', 'message_snippet']
         read_only_fields = ['message_id', 'sent_at']
+
+    def get_message_snippet(self, obj):
+        return obj.message_body[:20] + "..." if len(obj.message_body) > 20 else obj.message_body
+
+    def validate_message_body(self, value):
+        if not value.strip():
+            raise serializers.ValidationError("Message body cannot be empty or whitespace.")
+        return value
 
 class ConversationSerializer(serializers.ModelSerializer):
     conversation_id = serializers.UUIDField(source='id', read_only=True)
     participants = UserSerializer(many=True, read_only=True)
-    sent_messages = MessageSerializer(many=True, read_only=True)
-    
-    # Add SerializerMethodField to count messages in the conversation
+    sent_messages = MessageSerializer(many=True, read_only=True, source='sent_messages')
+
+    # Example of SerializerMethodField to count messages
     message_count = serializers.SerializerMethodField()
 
     class Meta:
@@ -36,5 +47,4 @@ class ConversationSerializer(serializers.ModelSerializer):
         read_only_fields = ['conversation_id', 'created_at']
 
     def get_message_count(self, obj):
-        # obj is a Conversation instance
         return obj.sent_messages.count()
