@@ -1,12 +1,9 @@
-from rest_framework import viewsets, status
-from rest_framework.response import Response
+from rest_framework import viewsets, filters
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import ValidationError
 
 from .models import Conversation, Message
 from .serializers import ConversationSerializer, MessageSerializer
-from rest_framework import filters
-
 
 class ConversationViewSet(viewsets.ModelViewSet):
     """
@@ -23,7 +20,6 @@ class ConversationViewSet(viewsets.ModelViewSet):
         conversation = serializer.save()
         conversation.participants.add(self.request.user)
 
-
 class MessageViewSet(viewsets.ModelViewSet):
     """
     ViewSet for listing and sending messages.
@@ -34,7 +30,8 @@ class MessageViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         """
-        Set the current authenticated user as the sender of the message.
+        Set the current authenticated user as the sender of the message,
+        only if they are a participant in the conversation.
         """
         conversation = serializer.validated_data['conversation']
         if self.request.user not in conversation.participants.all():
