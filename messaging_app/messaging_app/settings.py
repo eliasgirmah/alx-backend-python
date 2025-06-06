@@ -38,17 +38,18 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',  # JWT
-        'rest_framework.authentication.SessionAuthentication',        #  Browsable API
-        'rest_framework.authentication.BasicAuthentication',          #  Optional
+        'rest_framework.authentication.SessionAuthentication',        # Browsable API
+        'rest_framework.authentication.BasicAuthentication',          # Optional
     ],
 
     # default pagination class for all views
-    'DEFAULT_PAGINATION_CLASS': 'chats.pagination.MessagePagination',
-    'PAGE_SIZE': 20,
+    'DEFAULT_PAGINATION_CLASS': 'chats.pagination.MessagePagination',  # Inherits PageNumberPagination
+    'PAGE_SIZE': 20,  # This works with PageNumberPagination
 
     # enable django-filter as default filter backend
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
+
 
 # Optional: Customize token lifetime
 from datetime import timedelta
