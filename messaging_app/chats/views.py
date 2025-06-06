@@ -8,10 +8,16 @@ from .serializers import ConversationSerializer, MessageSerializer
 class ConversationViewSet(viewsets.ModelViewSet):
     """
     ViewSet for listing, retrieving, and creating conversations.
+    Only includes conversations where the current user is a participant.
     """
-    queryset = Conversation.objects.all()
     serializer_class = ConversationSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        """
+        Limit conversations to those the authenticated user participates in.
+        """
+        return Conversation.objects.filter(participants=self.request.user)
 
     def perform_create(self, serializer):
         """
@@ -20,13 +26,20 @@ class ConversationViewSet(viewsets.ModelViewSet):
         conversation = serializer.save()
         conversation.participants.add(self.request.user)
 
+
 class MessageViewSet(viewsets.ModelViewSet):
     """
     ViewSet for listing and sending messages.
+    Only includes messages from conversations the user is part of.
     """
-    queryset = Message.objects.all()
     serializer_class = MessageSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        """
+        Limit messages to those in conversations where the user is a participant.
+        """
+        return Message.objects.filter(conversation__participants=self.request.user)
 
     def perform_create(self, serializer):
         """
