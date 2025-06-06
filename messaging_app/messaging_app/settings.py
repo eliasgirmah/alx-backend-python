@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework_simplejwt',
+    'django_filters',  # add this for filtering support
     'rest_framework',
     'chats',
 ]
@@ -40,6 +41,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',        #  Browsable API
         'rest_framework.authentication.BasicAuthentication',          #  Optional
     ],
+
+    # default pagination class for all views
+    'DEFAULT_PAGINATION_CLASS': 'chats.pagination.MessagePagination',
+    'PAGE_SIZE': 20,
+
+    # enable django-filter as default filter backend
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 # Optional: Customize token lifetime

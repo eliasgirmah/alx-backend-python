@@ -4,10 +4,13 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Conversation, Message
 from .serializers import ConversationSerializer, MessageSerializer
-from .permissions import IsParticipantOfConversation  # Import your custom permission
+from .permissions import IsParticipantOfConversation
+from .filters import MessageFilter
 
 class ConversationViewSet(viewsets.ModelViewSet):
     """
@@ -32,6 +35,8 @@ class MessageViewSet(viewsets.ModelViewSet):
     """
     serializer_class = MessageSerializer
     permission_classes = [IsAuthenticated, IsParticipantOfConversation]
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = MessageFilter
 
     def get_queryset(self):
         return Message.objects.filter(conversation__participants=self.request.user)
@@ -39,8 +44,10 @@ class MessageViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         conversation_id = self.request.data.get('conversation')
 
+        #  Correct: Fetch the conversation instance
+        conversation = get_object_or_404(Conversation, id=conversation_id)
 
-        # ✅ Explicit access check with HTTP_403_FORBIDDEN behavior
+        #  Check user participation
         if self.request.user not in conversation.participants.all():
             raise PermissionDenied("You are not a participant of this conversation.")
 
