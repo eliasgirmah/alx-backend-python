@@ -37,7 +37,8 @@ class MessageViewSet(viewsets.ModelViewSet):
         return Message.objects.filter(conversation__participants=self.request.user)
 
     def perform_create(self, serializer):
-        conversation = serializer.validated_data.get('conversation')
+        conversation_id = self.request.data.get('conversation')
+
 
         # ✅ Explicit access check with HTTP_403_FORBIDDEN behavior
         if self.request.user not in conversation.participants.all():
