@@ -1,23 +1,22 @@
 from rest_framework import serializers
 from .models import User, Conversation, Message
 
+
+# ✅ User Serializer
 class UserSerializer(serializers.ModelSerializer):
-    user_id = serializers.UUIDField(source='id', read_only=True)
-    phone_number = serializers.CharField(required=False, allow_blank=True)
-    first_name = serializers.CharField(required=False, allow_blank=True)
-    last_name = serializers.CharField(required=False, allow_blank=True)
+    user_id = serializers.UUIDField(read_only=True)
 
     class Meta:
         model = User
         fields = ['user_id', 'username', 'email', 'phone_number', 'first_name', 'last_name']
         read_only_fields = ['user_id']
 
+
+# ✅ Message Serializer
 class MessageSerializer(serializers.ModelSerializer):
-    message_id = serializers.UUIDField(source='id', read_only=True)
+    message_id = serializers.UUIDField(read_only=True)
     conversation = serializers.PrimaryKeyRelatedField(queryset=Conversation.objects.all())
     sender = UserSerializer(read_only=True)
-    
-    # Example of SerializerMethodField usage (e.g., return a snippet of the message)
     message_snippet = serializers.SerializerMethodField()
 
     class Meta:
@@ -33,12 +32,12 @@ class MessageSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Message body cannot be empty or whitespace.")
         return value
 
-class ConversationSerializer(serializers.ModelSerializer):
-    conversation_id = serializers.UUIDField(source='id', read_only=True)
-    participants = UserSerializer(many=True, read_only=True)
-    sent_messages = MessageSerializer(many=True, read_only=True, source='sent_messages')
 
-    # Example of SerializerMethodField to count messages
+# ✅ Conversation Serializer
+class ConversationSerializer(serializers.ModelSerializer):
+    conversation_id = serializers.UUIDField(read_only=True)
+    participants = UserSerializer(many=True, read_only=True)
+    sent_messages = MessageSerializer(many=True, read_only=True)  # ✅ FIXED: no source argument
     message_count = serializers.SerializerMethodField()
 
     class Meta:

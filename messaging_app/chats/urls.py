@@ -8,19 +8,17 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
-# 🔁 Main router for Conversations
+# Main router
 router = DefaultRouter()
 router.register(r'conversations', ConversationViewSet, basename='conversation')
+router.register(r'messages', MessageViewSet, basename='message')  # <-- Add this if needed
 
-# 📬 Nested router for Messages under Conversations
+# Nested router
 conversations_router = NestedDefaultRouter(router, r'conversations', lookup='conversation')
 conversations_router.register(r'messages', MessageViewSet, basename='conversation-messages')
 
 urlpatterns = [
-    # JWT token endpoint using custom serializer
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
-
-    # API endpoints for conversations and nested messages
     path('', include(router.urls)),
     path('', include(conversations_router.urls)),
 ]

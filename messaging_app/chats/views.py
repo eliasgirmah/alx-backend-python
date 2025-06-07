@@ -1,5 +1,3 @@
-# messaging_app/chats/views.py
-
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied
@@ -11,6 +9,7 @@ from .models import Conversation, Message
 from .serializers import ConversationSerializer, MessageSerializer
 from .permissions import IsParticipantOfConversation
 from .filters import MessageFilter
+
 
 class ConversationViewSet(viewsets.ModelViewSet):
     """
@@ -30,7 +29,7 @@ class ConversationViewSet(viewsets.ModelViewSet):
 
 class MessageViewSet(viewsets.ModelViewSet):
     """
-    ViewSet for listing, creating, updating and deleting messages.
+    ViewSet for listing, creating, updating, and deleting messages.
     Only participants of the conversation can perform actions.
     """
     serializer_class = MessageSerializer
@@ -43,12 +42,9 @@ class MessageViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         conversation_id = self.request.data.get('conversation')
+        conversation = get_object_or_404(Conversation, conversation_id=conversation_id)
 
-        #  Correct: Fetch the conversation instance
-        conversation = get_object_or_404(Conversation, id=conversation_id)
-
-        #  Check user participation
         if self.request.user not in conversation.participants.all():
             raise PermissionDenied("You are not a participant of this conversation.")
 
-        serializer.save(sender=self.request.user)
+        serializer.save(sender=self.request.user, conversation=conversation)
