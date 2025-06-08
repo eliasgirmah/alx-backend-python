@@ -74,7 +74,7 @@ MIDDLEWARE = [
     'chats.middleware.RestrictAccessByTimeMiddleware',
     'chats.middleware.OffensiveLanguageMiddleware',  # Custom middleware for rate limiting
     # Custom middleware for logging requests
-    'chats.middleware.RolePermissionMiddleware',
+    'chats.middleware.RolepermissionMiddleware',
 
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
