@@ -79,19 +79,15 @@ class OffensiveLanguageMiddleware:
 
 from django.http import JsonResponse
 
-class RolePermissionMiddleware:
+class RolepermissionMiddleware:  # ✅ Match exactly!
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
-        # Skip checks for admin routes or unauthenticated users
         if not request.user.is_authenticated:
             return JsonResponse({'error': 'Authentication required'}, status=403)
 
-        # Only allow admins and moderators
         allowed_roles = ['admin', 'moderator']
-
-        # Assuming custom User model has a 'role' attribute
         user_role = getattr(request.user, 'role', None)
 
         if user_role not in allowed_roles:
