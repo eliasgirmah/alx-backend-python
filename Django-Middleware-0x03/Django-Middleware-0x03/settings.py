@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     'django_filters',  # add this for filtering support
     'rest_framework',
     'chats',
+    'accounts',  # Assuming you have an accounts app for user management
+
 ]
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -148,4 +150,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'chats.User'
+# AUTH_USER_MODEL = 'chats.User'
+AUTH_USER_MODEL = 'accounts.User'
