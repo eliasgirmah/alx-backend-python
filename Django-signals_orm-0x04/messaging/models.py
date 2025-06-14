@@ -7,18 +7,16 @@ class Message(models.Model):
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     edited = models.BooleanField(default=False)
-    
-    # ✅ This is required for Task 3:
-    parent_message = models.ForeignKey(
-        'self',
-        null=True,
-        blank=True,
-        on_delete=models.CASCADE,
-        related_name='replies'
-    )
-
+    parent_message = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
+    read = models.BooleanField(default=False)  # ✅ New field
+    objects = models.Manager()  # Default manager
+    unread = UnreadMessagesManager()  # ✅ Custom manager
     def __str__(self):
         return f"From {self.sender} to {self.receiver} at {self.timestamp}"
+class UnreadMessagesManager(models.Manager):
+    def for_user(self, user):
+        return self.get_queryset().filter(receiver=user, read=False).only('id', 'sender', 'timestamp')
+
 
 class MessageHistory(models.Model):
     message = models.ForeignKey(Message, on_delete=models.CASCADE, related_name='history')
