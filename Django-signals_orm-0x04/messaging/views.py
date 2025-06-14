@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Prefetch
+from django.views.decorators.cache import cache_page
 from .models import Message
 
 @login_required
@@ -18,6 +19,7 @@ def unread_inbox(request):
     })
 
 @login_required
+@cache_page(60)  # Cache this view for 60 seconds
 def all_received_messages(request):
     """
     Display all messages received by the user.
