@@ -6,22 +6,28 @@ from .models import Message
 @login_required
 def unread_inbox(request):
     """
-    View to display unread messages for the logged-in user.
-    Uses filter() and only() for query optimization as required.
+    Display unread messages for the logged-in user.
+    Uses the custom manager method AND explicit filter() with only() for optimization.
     """
     user = request.user
-    # Explicitly use filter and only here (even if manager has similar method)
-    unread_messages = Message.objects.filter(receiver=user, read=False).only('id', 'sender', 'timestamp', 'content')
+    
+    # Using the custom manager method to get unread messages for user
+    unread_messages = Message.unread.unread_for_user(user)
+    
+    # Additionally, explicitly filter and optimize with only()
+    # (optional, since unread_for_user already uses filter and only)
+    unread_messages = unread_messages.filter(receiver=user, read=False).only('id', 'sender', 'timestamp', 'content')
 
     return render(request, 'messaging/unread_inbox.html', {
         'unread_messages': unread_messages,
     })
 
+
 @login_required
 def threaded_conversation(request, message_id):
     """
-    View to display a message and all its threaded replies recursively.
-    Uses select_related and prefetch_related to optimize DB queries.
+    Display a message and all its threaded replies recursively,
+    optimized with select_related and prefetch_related.
     """
     message = get_object_or_404(
         Message.objects.select_related('sender', 'receiver').prefetch_related(
@@ -34,9 +40,6 @@ def threaded_conversation(request, message_id):
     )
 
     def get_all_replies(msg):
-        """
-        Recursively collect all replies to a message in a flat list.
-        """
         all_replies = []
         for reply in msg.replies.all():
             all_replies.append(reply)
