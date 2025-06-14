@@ -7,10 +7,12 @@ from .models import Message
 def unread_inbox(request):
     """
     View to display unread messages for the logged-in user.
-    Uses custom manager to filter unread messages and optimizes query with .only().
+    Uses filter() and only() for query optimization as required.
     """
     user = request.user
-    unread_messages = Message.unread.unread_for_user(user)
+    # Explicitly use filter and only here (even if manager has similar method)
+    unread_messages = Message.objects.filter(receiver=user, read=False).only('id', 'sender', 'timestamp', 'content')
+
     return render(request, 'messaging/unread_inbox.html', {
         'unread_messages': unread_messages,
     })
