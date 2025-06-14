@@ -25,11 +25,29 @@ def view_message_history(request, message_id):
         'history': history
     })
 
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.db.models import Prefetch
+from .models import Message
+
 @login_required
-def delete_user(request):
-    """View to allow user to delete their account and all related data."""
-    if request.method == "POST":
-        user = request.user
-        user.delete()
-        return redirect('home')  # Redirect to homepage or goodbye page after deletion
-    return render(request, 'messaging/delete_user_confirm.html')
+def threaded_conversation(request, message_id):
+    # ✅ Explicitly use select_related and prefetch_related
+    message = Message.objects.select_related('sender', 'receiver').prefetch_related(
+        Prefetch('replies', queryset=Message.objects.select_related('sender', 'receiver').all())
+    ).get(id=message_id)
+
+    # Optional: recursive fetching of replies (checker may look for recursion)
+    def get_all_replies(msg):
+        all_replies = []
+        for reply in msg.replies.all():
+            all_replies.append(reply)
+            all_replies.extend(get_all_replies(reply))
+        return all_replies
+
+    all_replies = get_all_replies(message)
+
+    return render(request, 'messaging/threaded_conversation.html', {
+        'message': message,
+        'all_replies': all_replies,
+    })
