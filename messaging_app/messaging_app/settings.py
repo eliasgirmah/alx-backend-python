@@ -1,4 +1,6 @@
 
+import pymysql
+pymysql.install_as_MySQLdb()
 
 from pathlib import Path
 
@@ -95,8 +97,12 @@ WSGI_APPLICATION = 'messaging_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('MYSQL_DATABASE', 'messaging_db'),
+        'USER': os.getenv('MYSQL_USER', 'messaging_user'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD', 'strongpassword'),
+        'HOST': 'db',  # Important: Docker service name
+        'PORT': '3306',
     }
 }
 
