@@ -1,23 +1,18 @@
-# ✅ Base image
+# Install Python
 FROM python:3.10
 
-# ✅ Set env variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+WORKDIR /messaging_app
 
-# ✅ Set working dir
-WORKDIR /app
+COPY requirements.txt .
 
-# ✅ Copy requirements and install
-COPY Requirements.txt /app/
-RUN pip install --upgrade pip
-RUN pip install -r Requirements.txt
+# Install dependencies
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
-# ✅ Copy all app code
-COPY . /app/
+# Copy project
+COPY . .
 
-# ✅ Expose port
+# Expose the Django Port
 EXPOSE 8000
 
-# ✅ Run Django dev server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
