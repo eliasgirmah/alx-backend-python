@@ -1,23 +1,23 @@
-# Use Python base image
+# ✅ Base image
 FROM python:3.10
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# ✅ Set env variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Set working directory in the container
+# ✅ Set working dir
 WORKDIR /app
 
-# Copy requirements and install
-COPY requirements.txt /app/
+# ✅ Copy requirements and install
+COPY Requirements.txt /app/
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install -r Requirements.txt
 
-# Copy the project code
+# ✅ Copy all app code
 COPY . /app/
 
-# Expose Django's default port
+# ✅ Expose port
 EXPOSE 8000
 
-# Run the Django server
+# ✅ Run Django dev server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
