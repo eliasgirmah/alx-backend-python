@@ -1,18 +1,21 @@
-# Install Python
-FROM python:3.10
+FROM python:3.10-slim
 
-WORKDIR /messaging_app
+WORKDIR /app
+
+# Install system dependencies required for building cryptography and other packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libssl-dev \
+    libffi-dev \
+    python3-dev \
+    cargo \
+ && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
 
-# Install dependencies
-RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip setuptools wheel
+RUN pip install -r requirements.txt
 
-# Copy project
 COPY . .
 
-# Expose the Django Port
-EXPOSE 8000
-
-CMD ["python", "manage.py", "runserver", "-p", "8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

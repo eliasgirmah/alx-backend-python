@@ -3,6 +3,7 @@ import os
 import pymysql
 pymysql.install_as_MySQLdb()
 
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -96,16 +97,18 @@ WSGI_APPLICATION = 'messaging_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('MYSQL_DATABASE', 'messaging_db'),
-        'USER': os.getenv('MYSQL_USER', 'root'),
-        'PASSWORD': os.getenv('MYSQL_PASSWORD', 'elias'),
-        'HOST': os.getenv('MYSQL_HOST', 'localhost'),  # ← This is the issue
-        'PORT': os.getenv('MYSQL_PORT', '3306'),
+        'NAME': 'messaging_db',
+        'USER': 'messaging_db',
+        'PASSWORD': 'elias',
+        'HOST': 'mysql-service',
+        'PORT': '3306',
     }
 }
+
 
 
 # Password validation
