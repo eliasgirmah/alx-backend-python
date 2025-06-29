@@ -1,0 +1,29 @@
+#!/bin/bash
+
+DEPLOYMENT_NAME="django-blue"
+NAMESPACE="default"   # change if needed
+APP_URL="http://<your-service-cluster-ip>:8000"  # Update to your service URL or NodePort
+
+echo "Applying updated deployment to trigger rolling update..."
+kubectl apply -f blue_deployment.yaml
+
+echo "Monitoring rollout status..."
+kubectl rollout status deployment/$DEPLOYMENT_NAME -n $NAMESPACE
+
+echo "Testing app availability during rollout..."
+# Loop to send requests every 2 seconds and check HTTP status
+for i in {1..30}
+do
+  HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" $APP_URL || echo "000")
+  TIMESTAMP=$(date +"%T")
+  echo "[$TIMESTAMP] HTTP status: $HTTP_STATUS"
+  if [[ "$HTTP_STATUS" != "200" ]]; then
+    echo "WARNING: App is not responding properly!"
+  fi
+  sleep 2
+done
+
+echo "Rolling update complete. Current pods status:"
+kubectl get pods -l app=$DEPLOYMENT_NAME -n $NAMESPACE
+
+echo "Script finished."
