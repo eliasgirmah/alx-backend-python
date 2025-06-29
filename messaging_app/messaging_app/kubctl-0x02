@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Deploy blue (existing)
+kubectl apply -f blue_deployment.yaml
+
+# Deploy green (new version)
+kubectl apply -f green_deployment.yaml
+
+# Deploy or update service routing to blue by default
+kubectl apply -f kubeservice.yaml
+
+echo "Deployments applied. Waiting for pods to be ready..."
+kubectl rollout status deployment/django-blue
+kubectl rollout status deployment/django-green
+
+# Get one green pod name
+GREEN_POD=$(kubectl get pods -l app=django,version=green -o jsonpath="{.items[0].metadata.name}")
+
+echo "Showing logs of green pod: $GREEN_POD"
+kubectl logs -f "$GREEN_POD"
