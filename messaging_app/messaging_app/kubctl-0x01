@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Scale the Django app deployment to 3 replicas
+echo "Scaling deployment 'messaging-app' to 3 replicas..."
+kubectl scale deployment messaging-app --replicas=3
+
+# Wait a few seconds for pods to spin up
+sleep 10
+
+# Verify multiple pods are running
+echo "Checking pods..."
+kubectl get pods -l app=messaging-app
+
+# Run load test using wrk (make sure wrk is installed and you replace URL with your app's URL)
+# Assuming your app is exposed on a NodePort or LoadBalancer on localhost port 8000
+echo "Running load test with wrk (10s, 5 connections, 10 threads)..."
+wrk -t10 -c5 -d10s http://localhost:8000/
+
+# Monitor resource usage of pods
+echo "Monitoring resource usage of messaging-app pods..."
+kubectl top pods -l app=messaging-app
