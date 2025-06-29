@@ -1,21 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: django-app-blue
+  name: django-blue
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app: django-app
-      version: blue
+      app: django-blue
   template:
     metadata:
       labels:
-        app: django-app
-        version: blue
+        app: django-blue
     spec:
       containers:
-      - name: django-app
-        image: your-django-image:blue
+      - name: django
+        image: your-dockerhub-username/your-django-image:2.0   # Update version here
         ports:
         - containerPort: 8000
