@@ -1,3 +1,4 @@
+import os
 
 import pymysql
 pymysql.install_as_MySQLdb()
@@ -99,10 +100,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv('MYSQL_DATABASE', 'messaging_db'),
-        'USER': os.getenv('MYSQL_USER', 'messaging_user'),
-        'PASSWORD': os.getenv('MYSQL_PASSWORD', 'strongpassword'),
-        'HOST': 'db',  # Important: Docker service name
-        'PORT': '3306',
+        'USER': os.getenv('MYSQL_USER', 'root'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD', 'elias'),
+        'HOST': os.getenv('MYSQL_HOST', 'localhost'),  # ← This is the issue
+        'PORT': os.getenv('MYSQL_PORT', '3306'),
     }
 }
 
