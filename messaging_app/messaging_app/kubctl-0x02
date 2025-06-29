@@ -1,20 +1,32 @@
 #!/bin/bash
 
-# Deploy blue (existing)
+# Apply blue deployment (current version)
 kubectl apply -f blue_deployment.yaml
 
-# Deploy green (new version)
+# Apply green deployment (new version)
 kubectl apply -f green_deployment.yaml
 
-# Deploy or update service routing to blue by default
+# Apply the service that routes traffic (initially to blue)
 kubectl apply -f kubeservice.yaml
 
-echo "Deployments applied. Waiting for pods to be ready..."
-kubectl rollout status deployment/django-blue
-kubectl rollout status deployment/django-green
+# Wait for pods to be ready (optional wait)
+echo "Waiting for pods to be ready..."
+kubectl wait --for=condition=ready pod -l app=django-green --timeout=120s
 
-# Get one green pod name
-GREEN_POD=$(kubectl get pods -l app=django,version=green -o jsonpath="{.items[0].metadata.name}")
+# Check logs of green deployment pods to ensure no errors
+echo "Checking logs of green deployment pods:"
+GREEN_PODS=$(kubectl get pods -l app=django-green -o jsonpath='{.items[*].metadata.name}')
+for pod in $GREEN_PODS; do
+  echo "Logs for pod $pod:"
+  kubectl logs $pod | tail -30
+done
 
-echo "Showing logs of green pod: $GREEN_POD"
-kubectl logs -f "$GREEN_POD"
+# Optional: Switch service selector to green deployment to shift traffic
+# echo "Switching service to green deployment..."
+# kubectl patch service django-service -p '{"spec":{"selector":{"app":"django-green"}}}'
+
+# Verify pods and services status
+kubectl get pods
+kubectl get svc
+
+echo "Blue-green deployment script completed."
