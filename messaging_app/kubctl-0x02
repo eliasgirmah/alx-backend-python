@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Apply both deployments
+kubectl apply -f blue_deployment.yaml
+kubectl apply -f green_deployment.yaml
+
+# Wait for pods to start
+sleep 10
+
+echo "Checking logs for green deployment..."
+kubectl logs -l version=green
+
+echo "If no errors, update the service to point to green:"
+kubectl apply -f kubeservice.yaml
