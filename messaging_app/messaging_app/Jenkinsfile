@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    environment {
+        GIT_CREDENTIALS_ID = 'github-creds'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git credentialsId: "${GIT_CREDENTIALS_ID}", url: 'https://github.com/eliasgirmah/alx-backend-python.git'
+            }
+        }
+
+        stage('Debug') {
+            steps {
+                echo '✅ Jenkinsfile is running correctly!'
+            }
+        }
+    }
+}
