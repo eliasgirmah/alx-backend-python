@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+
+    environment {
+        GIT_CREDENTIALS_ID = 'github-creds'
+        PYTHONPATH = "${env.WORKSPACE}/messaging_app"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git credentialsId: "${GIT_CREDENTIALS_ID}", url: 'https://github.com/YOUR_USERNAME/alx-backend-python.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh '''
+                sudo apt-get update
+                sudo apt-get install -y python3-pip python3-venv
+                python3 -m venv venv
+                . venv/bin/activate
+                pip install --upgrade pip
+                pip install -r messaging_app/requirements.txt
+                '''
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh '''
+                . venv/bin/activate
+                pytest --junitxml=report.xml
+                '''
+            }
+        }
+
+        stage('Publish Report') {
+            steps {
+                junit 'report.xml'
+            }
+        }
+    }
+}
