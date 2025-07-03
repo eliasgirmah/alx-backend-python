@@ -3,25 +3,26 @@ pipeline {
 
     environment {
         GIT_CREDENTIALS_ID = 'github-creds'
-        PYTHONPATH = "${env.WORKSPACE}/messaging_app"
+        VENV_DIR = 'venv'
+        REPO_DIR = 'messaging_app'
     }
 
     stages {
-        stage('Checkout') {
+        stage('Clone Repository') {
             steps {
-                git credentialsId: "${GIT_CREDENTIALS_ID}", url: 'https://github.com/eliasgirmah/alx-backend-python.git'
+                git credentialsId: "${GIT_CREDENTIALS_ID}", url: 'https://github.com/eliasgirmah/alx-backend-python.git', branch: 'main'
             }
         }
 
         stage('Install Dependencies') {
             steps {
                 sh '''
-                sudo apt-get update
-                sudo apt-get install -y python3-pip python3-venv
-                python3 -m venv venv
-                . venv/bin/activate
-                pip install --upgrade pip
-                pip install -r messaging_app/requirements.txt
+                    sudo apt-get update
+                    sudo apt-get install -y python3-pip python3-venv
+                    python3 -m venv ${VENV_DIR}
+                    . ${VENV_DIR}/bin/activate
+                    pip install --upgrade pip
+                    pip install -r ${REPO_DIR}/requirements.txt
                 '''
             }
         }
@@ -29,15 +30,15 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh '''
-                . venv/bin/activate
-                pytest --junitxml=report.xml
+                    . ${VENV_DIR}/bin/activate
+                    pytest ${REPO_DIR} --junitxml=test-results.xml
                 '''
             }
         }
 
-        stage('Publish Report') {
+        stage('Publish Test Report') {
             steps {
-                junit 'report.xml'
+                junit 'test-results.xml'
             }
         }
     }
