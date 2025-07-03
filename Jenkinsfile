@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
+        GIT_CREDENTIALS_ID = 'github-creds'
         VENV_DIR = 'venv'
         REPO_DIR = 'messaging_app'
-        GIT_CREDENTIALS_ID = 'github-creds'
     }
 
     stages {
@@ -14,26 +14,12 @@ pipeline {
             }
         }
 
-        stage('Install Python and pip') {
+        stage('Install Dependencies') {
             steps {
                 sh '''
-                    apt-get update
-                    apt-get install -y python3-pip python3-venv
-                '''
-            }
-        }
-
-        stage('Create Virtualenv') {
-            steps {
-                sh '''
+                    sudo apt-get update
+                    sudo apt-get install -y python3-pip python3-venv
                     python3 -m venv ${VENV_DIR}
-                '''
-            }
-        }
-
-        stage('Install Python Dependencies') {
-            steps {
-                sh '''
                     . ${VENV_DIR}/bin/activate
                     pip install --upgrade pip
                     pip install -r ${REPO_DIR}/requirements.txt
