@@ -26,6 +26,11 @@ pipeline {
         stage('Create Virtualenv') {
             steps {
                 sh '''
+<<<<<<< HEAD
+=======
+                    apt-get update
+                    apt-get install -y python3-pip python3-venv
+>>>>>>> 33c8b45dff75c30b73a1ce6c401ce56f53e596c4
                     python3 -m venv ${VENV_DIR}
                 '''
             }

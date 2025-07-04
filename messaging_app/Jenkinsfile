@@ -1,42 +1,25 @@
-pipeline {
+pipeline { 
     agent any
 
     environment {
-        VENV_DIR = 'venv'
-        REPO_DIR = 'messaging_app'
-        GIT_CREDENTIALS_ID = 'github-creds'
+        DOCKER_IMAGE = 'dmadiou12/messaging_app:latest'
     }
 
     stages {
-        stage('Clone Repository') {
+        stage('Clone Repo') {
             steps {
-                git credentialsId: "${GIT_CREDENTIALS_ID}", url: 'https://github.com/eliasgirmah/alx-backend-python.git', branch: 'main'
+                git branch: 'main', credentialsId: 'github-creds', url: 'https://github.com/d-madiou/alx-backend-python.git'
             }
         }
 
-        stage('Install Python and pip') {
+        stage('Install Dependencies') {
             steps {
                 sh '''
-                    apt-get update
-                    apt-get install -y python3-pip python3-venv
-                '''
-            }
-        }
-
-        stage('Create Virtualenv') {
-            steps {
-                sh '''
-                    python3 -m venv ${VENV_DIR}
-                '''
-            }
-        }
-
-        stage('Install Python Dependencies') {
-            steps {
-                sh '''
-                    . ${VENV_DIR}/bin/activate
-                    pip install --upgrade pip
-                    pip install -r ${REPO_DIR}/requirements.txt
+                python3 --version || exit 1
+                python3 -m venv venv
+                . venv/bin/activate
+                pip3 install --upgrade pip
+                pip3 install -r messaging_app/requirements.txt
                 '''
             }
         }
@@ -44,15 +27,32 @@ pipeline {
         stage('Run Tests') {
             steps {
                 sh '''
-                    . ${VENV_DIR}/bin/activate
-                    pytest ${REPO_DIR} --junitxml=test-results.xml
+                . venv/bin/activate
+                pytest messaging_app/tests/ --junitxml=report.xml
                 '''
             }
         }
 
-        stage('Publish Test Report') {
+        stage('Archive Test Report') {
             steps {
-                junit 'test-results.xml'
+                junit 'report.xml'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t $DOCKER_IMAGE messaging_app/.'
+            }
+        }
+
+        stage('Push Docker Image to DockerHub') {
+            steps {
+                withCredentials([string(credentialsId: 'dockerhub-password', variable: 'DOCKERHUB_PASS')]) {
+                    sh '''
+                    echo $DOCKERHUB_PASS | docker login -u dmadiou12 --password-stdin
+                    docker push $DOCKER_IMAGE
+                    '''
+                }
             }
         }
     }
